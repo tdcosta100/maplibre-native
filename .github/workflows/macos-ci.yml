@@ -139,5 +139,5 @@ jobs:
       - name: Lint plist files
         run: make macos-lint
 
-      - name: Nitpick Darwin code generation
-        run: scripts/nitpick/generated-code.js darwin
+      - name: Lint Darwin code generation
+        run: make darwin-style-code
