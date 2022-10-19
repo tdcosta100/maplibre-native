@@ -1,7 +1,12 @@
-find_package(OpenGL REQUIRED)
-find_package(PkgConfig REQUIRED)
+if(WIN32)
+    find_package(OpenGL REQUIRED)
+    find_package(GLFW REQUIRED)
+else()
+    find_package(OpenGL REQUIRED)
+    find_package(PkgConfig REQUIRED)
 
-pkg_search_module(GLFW glfw3 REQUIRED)
+    pkg_search_module(GLFW glfw3 REQUIRED)
+endif()
 
 add_executable(
     mbgl-glfw

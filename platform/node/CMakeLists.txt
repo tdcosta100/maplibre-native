@@ -1,10 +1,15 @@
-if(NOT EXISTS ${PROJECT_SOURCE_DIR}/node_modules/@mapbox/cmake-node-module/module.cmake)
-    message(WARNING "Not building node bindings, dependencies not found. Run 'npm update'.")
-    return()
-endif()
+if(WIN32)
+    set(NODE_MODULE_CACHE_DIR ${CMAKE_SOURCE_DIR}/build/node_bindings)
+    include(${CMAKE_CURRENT_LIST_DIR}/cmake/module.cmake)
+else()
+    if(NOT EXISTS ${PROJECT_SOURCE_DIR}/node_modules/@mapbox/cmake-node-module/module.cmake)
+        message(WARNING "Not building node bindings, dependencies not found. Run 'npm update'.")
+        return()
+    endif()
 
-set(NODE_MODULE_CACHE_DIR ${CMAKE_SOURCE_DIR}/build/headers)
-include(${PROJECT_SOURCE_DIR}/node_modules/@mapbox/cmake-node-module/module.cmake)
+    set(NODE_MODULE_CACHE_DIR ${CMAKE_SOURCE_DIR}/build/headers)
+    include(${PROJECT_SOURCE_DIR}/node_modules/@mapbox/cmake-node-module/module.cmake)
+endif()
 
 add_node_module(
     mbgl-node
@@ -16,8 +21,13 @@ add_node_module(
         48
         51
 )
-find_package(PkgConfig REQUIRED)
-pkg_search_module(LIBUV libuv REQUIRED)
+
+if(MSVC)
+    find_package(LIBUV REQUIRED)
+else()
+    find_package(PkgConfig REQUIRED)
+    pkg_search_module(LIBUV libuv REQUIRED)
+endif()
 
 add_library(mbgl-node-loop STATIC)
 
@@ -37,6 +47,15 @@ target_include_directories(
         ${PROJECT_SOURCE_DIR}/src
     PRIVATE ${LIBUV_INCLUDE_DIRS}
 )
+
+if(MSVC)
+    target_include_directories(
+        mbgl-node
+        INTERFACE
+        ${GETOPT_INCLUDE_DIR}
+        ${PROJECT_SOURCE_DIR}/platform/windows/include
+    )
+endif()
 
 target_link_libraries(
     mbgl-node-loop
@@ -67,6 +86,13 @@ target_link_libraries(
     INTERFACE mbgl-node-loop
     INTERFACE Mapbox::Map
 )
+
+if(MSVC)
+    target_link_libraries(
+        mbgl-node-loop
+        INTERFACE ${CURL_LIBRARIES}
+    )
+endif()
 
 # FIXME: Node bindings only run fully on Linux now because it requires libuv RunLoop (which is the default on Linux). Also, Sanitizer will
 # not work here because node will do a dlopen(), which is not currently supported.
