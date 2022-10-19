@@ -22,6 +22,11 @@
 #include <cstring>
 #include <cstdio>
 
+#ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable: 4244 )
+#endif
+
 static void handleError(CURLMcode code) {
     if (code != CURLM_OK) {
         throw std::runtime_error(std::string("CURL multi error: ") + curl_multi_strerror(code));
@@ -404,7 +409,7 @@ void HTTPRequest::handleResult(CURLcode code) {
             break;
         }
     } else {
-        long responseCode = 0;
+        long long responseCode = 0;
         curl_easy_getinfo(handle, CURLINFO_RESPONSE_CODE, &responseCode);
 
         if (responseCode == 200) {
@@ -468,3 +473,7 @@ ClientOptions HTTPFileSource::getClientOptions() {
 }
 
 } // namespace mbgl
+
+#ifdef _MSC_VER
+#pragma warning( pop )
+#endif

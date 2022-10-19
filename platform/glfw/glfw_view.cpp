@@ -30,15 +30,13 @@
 #pragma warning(push)
 #pragma warning(disable : 4244)
 #pragma warning(disable : 4267)
+#pragma warning(disable : 4305)
+#pragma warning(disable : 4477)
 #endif
 
 #include <mapbox/cheap_ruler.hpp>
 #include <mapbox/geometry.hpp>
 #include <mapbox/geojson.hpp>
-
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 #if MBGL_USE_GLES2
 #define GLFW_INCLUDE_ES2
@@ -157,6 +155,7 @@ GLFWView::GLFWView(bool fullscreen_, bool benchmark_, const mbgl::ResourceOption
 #endif
 
 #if MBGL_USE_GLES2
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -283,7 +282,7 @@ void GLFWView::onKey(GLFWwindow *window, int key, int /*scancode*/, int action, 
             case GLFW_KEY_S:
                 if (view->changeStyleCallback) view->changeStyleCallback();
                 break;
-#if not MBGL_USE_GLES2
+#ifndef MBGL_USE_GLES2
         case GLFW_KEY_B: {
             auto debug = view->map->getDebug();
             if (debug & mbgl::MapDebugOptions::StencilClip) {
@@ -679,7 +678,7 @@ void GLFWView::updateAnimatedAnnotations() {
 
 void GLFWView::cycleDebugOptions() {
     auto debug = map->getDebug();
-#if not MBGL_USE_GLES2
+#ifndef MBGL_USE_GLES2
     if (debug & mbgl::MapDebugOptions::StencilClip)
         debug = mbgl::MapDebugOptions::NoDebug;
     else if (debug & mbgl::MapDebugOptions::Overdraw)
@@ -1116,3 +1115,7 @@ void GLFWView::onWillStartRenderingFrame() {
     }
 #endif
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif

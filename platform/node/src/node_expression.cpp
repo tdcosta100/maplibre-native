@@ -79,9 +79,7 @@ void NodeExpression::Parse(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
     auto success = [&cons, &info](std::unique_ptr<Expression> result) {
         auto nodeExpr = new NodeExpression(std::move(result));
-        const int argc = 0;
-        v8::Local<v8::Value> argv[0] = {};
-        auto wrapped = Nan::NewInstance(cons, argc, argv).ToLocalChecked();
+        auto wrapped = Nan::NewInstance(cons).ToLocalChecked();
         nodeExpr->Wrap(wrapped);
         info.GetReturnValue().Set(wrapped);
     };

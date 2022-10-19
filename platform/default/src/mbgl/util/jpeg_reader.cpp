@@ -5,6 +5,11 @@
 #include <sstream>
 #include <array>
 
+#ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable: 4267 )
+#endif
+
 extern "C"
 {
 #include <jpeglib.h>
@@ -148,3 +153,7 @@ PremultipliedImage decodeJPEG(const uint8_t* data, size_t size) {
 }
 
 } // namespace mbgl
+
+#ifdef _MSC_VER
+#pragma warning( pop )
+#endif

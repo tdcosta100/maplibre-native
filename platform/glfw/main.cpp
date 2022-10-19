@@ -84,12 +84,14 @@ int main(int argc, char *argv[]) {
     std::string style = styleValue ? args::get(styleValue) : "";
     const std::string cacheDB = cacheDBValue ? args::get(cacheDBValue) : "/tmp/mbgl-cache.db";
 
+#ifndef _MSC_VER
     // sigint handling
     struct sigaction sigIntHandler;
     sigIntHandler.sa_handler = quit_handler;
     sigemptyset(&sigIntHandler.sa_mask);
     sigIntHandler.sa_flags = 0;
     sigaction(SIGINT, &sigIntHandler, nullptr);
+#endif
 
     if (benchmark) {
         mbgl::Log::Info(mbgl::Event::General, "BENCHMARK MODE: Some optimizations are disabled.");

@@ -9,6 +9,11 @@
 #include <fstream>
 #include <utility>
 
+#ifdef _MSC_VER
+#pragma warning( push )
+#pragma warning( disable: 4244 )
+#endif
+
 using Writer = rapidjson::PrettyWriter<rapidjson::StringBuffer>;
 
 class TestOperationSerializer {
@@ -187,3 +192,7 @@ std::string TestWriter::serialize() const {
 
     return s.GetString();
 }
+
+#ifdef _MSC_VER
+#pragma warning( pop )
+#endif
