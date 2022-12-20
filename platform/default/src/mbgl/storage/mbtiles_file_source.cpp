@@ -304,6 +304,11 @@ std::unique_ptr<AsyncRequest> MBTilesFileSource::request(const Resource &resourc
     // file must exist
     auto path = url_to_path(resource.url);
     struct stat buffer;
+
+#ifdef _MSC_VER
+    path = path.substr(1);
+#endif
+
     int result = stat(path.c_str(), &buffer);
     if (result == -1 && errno == ENOENT) {
         Response response;
