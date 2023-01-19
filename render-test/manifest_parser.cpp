@@ -7,6 +7,10 @@
 #include <algorithm>
 #include <random>
 
+#if defined(_MSC_VER) && defined(GetObject)
+#undef GetObject
+#endif
+
 Manifest::Manifest() {
     const char* envApiKey = getenv("MGL_API_KEY");
     if (envApiKey != nullptr) {

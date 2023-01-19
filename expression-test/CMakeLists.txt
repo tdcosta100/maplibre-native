@@ -11,6 +11,20 @@ add_executable(
     ${PROJECT_SOURCE_DIR}/expression-test/main.cpp
 )
 
+if(MSVC)
+    target_compile_definitions(
+        mbgl-expression-test
+        PRIVATE
+            GHC_WIN_DISABLE_WSTRING_STORAGE_TYPE
+    )
+
+    set_source_files_properties(
+        ${PROJECT_SOURCE_DIR}/expression-test/expression_test_parser.cpp
+        PROPERTIES
+            COMPILE_FLAGS "/wd4244"
+    )
+endif()
+
 target_compile_definitions(
     mbgl-expression-test
     PRIVATE TEST_RUNNER_ROOT_PATH="${PROJECT_SOURCE_DIR}"

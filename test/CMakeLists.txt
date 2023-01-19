@@ -234,6 +234,11 @@ if(MSVC)
         mbgl-test
         PRIVATE MBGL_BUILDING_LIB
     )
+
+    set_source_files_properties(
+        ${PROJECT_SOURCE_DIR}/test/util/memory.test.cpp
+        COMPILE_FLAGS "/UNOMINMAX"
+    )
 endif()
 
 set_property(TARGET mbgl-test PROPERTY FOLDER Core)

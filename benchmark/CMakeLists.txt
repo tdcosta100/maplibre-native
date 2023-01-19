@@ -49,6 +49,19 @@ if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     )
+elseif(MSVC)
+    set_source_files_properties(
+        ${PROJECT_SOURCE_DIR}/benchmark/api/query.benchmark.cpp
+        ${PROJECT_SOURCE_DIR}/benchmark/api/render.benchmark.cpp
+        PRIVATE
+            COMPILE_FLAGS "/wd4244"
+    )
+
+    set_source_files_properties(
+        ${PROJECT_SOURCE_DIR}/benchmark/util/dtoa.benchmark.cpp
+        PRIVATE
+            COMPILE_FLAGS "/wd4834"
+    )
 endif()
 
 # Needed for testing private classes

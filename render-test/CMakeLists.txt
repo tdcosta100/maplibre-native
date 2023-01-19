@@ -18,6 +18,23 @@ add_library(
     ${PROJECT_SOURCE_DIR}/render-test/runner.hpp
 )
 
+if(MSVC)
+    target_compile_definitions(
+        mbgl-render-test
+        PRIVATE
+            GHC_WIN_DISABLE_WSTRING_STORAGE_TYPE
+    )
+
+    set_source_files_properties(
+        ${PROJECT_SOURCE_DIR}/render-test/manifest_parser.cpp
+        ${PROJECT_SOURCE_DIR}/render-test/parser.cpp
+        ${PROJECT_SOURCE_DIR}/render-test/render_test.cpp
+        ${PROJECT_SOURCE_DIR}/render-test/runner.cpp
+        PROPERTIES
+            COMPILE_FLAGS "/wd4244"
+    )
+endif()
+
 if(CMAKE_SYSTEM_NAME STREQUAL iOS)
     set_target_properties(mbgl-render-test PROPERTIES XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "${IOS_DEPLOYMENT_TARGET}")
     set_target_properties(mbgl-render-test PROPERTIES XCODE_ATTRIBUTE_ENABLE_BITCODE "YES")

@@ -32,6 +32,29 @@ target_link_libraries(
     PRIVATE Mapbox::Base::Extras::args mbgl-compiler-options mbgl-core
 )
 
+if(MSVC)
+    find_package(libuv REQUIRED)
+
+    target_link_libraries(
+        mbgl-cache PRIVATE uv_a
+    )
+
+    target_link_libraries(
+        mbgl-offline PRIVATE uv_a
+    )
+
+    target_link_libraries(
+        mbgl-render PRIVATE uv_a
+    )
+
+    set_source_files_properties(
+        ${PROJECT_SOURCE_DIR}/bin/cache.cpp
+        ${PROJECT_SOURCE_DIR}/bin/offline.cpp
+        ${PROJECT_SOURCE_DIR}/bin/render.cpp
+        PROPERTIES COMPILE_FLAGS "/wd4244"
+    )
+endif()
+
 install(TARGETS mbgl-offline mbgl-render RUNTIME DESTINATION bin)
 
 # FIXME: CI must have a valid token
