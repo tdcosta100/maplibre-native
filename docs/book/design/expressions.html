@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="../diff.css">
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,31 +61,38 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="../design/index.html"><strong aria-hidden="true">1.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../design/ten-thousand-foot-view.html"><strong aria-hidden="true">1.1.</strong> Ten Thousand Foot View</a></li><li class="chapter-item expanded "><a href="../design/coordinate-system.html"><strong aria-hidden="true">1.2.</strong> Coordinate System</a></li><li class="chapter-item expanded "><a href="../design/expressions.html" class="active"><strong aria-hidden="true">1.3.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="../design/archictural-problems-and-recommendations.html"><strong aria-hidden="true">1.4.</strong> Architectural Problems and Recommendations</a></li><li class="chapter-item expanded "><a href="../design/android-map-rendering-data-flow.html"><strong aria-hidden="true">1.5.</strong> Android Map Rendering Data Flow</a></li><li class="chapter-item expanded "><a href="../design/geometry-tile-worker.html"><strong aria-hidden="true">1.6.</strong> Geometry Tile Worker</a></li></ol></li><li class="chapter-item expanded "><a href="../android/index.html"><strong aria-hidden="true">2.</strong> MapLibre Native for Android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/getting-started-guide.html"><strong aria-hidden="true">2.1.</strong> Quickstart</a></li><li class="chapter-item expanded "><a href="../android/annotation-guide.html"><strong aria-hidden="true">2.2.</strong> Annotation: Marker</a></li><li class="chapter-item expanded "><a href="../android/location-component-guide.html"><strong aria-hidden="true">2.3.</strong> Location Component</a></li></ol></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -116,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -172,16 +179,16 @@ vector styles. Mapbox Vector Style is used in Mapbox Vector Tiles.
 Mapbox Vector Tiles is a vector tile specification initiated by Mapbox
 which was later widely adopted by the geospatial community.</p>
 <p>To recap, Mapbox Vector Styles have 2 significant parts - <em>Sources</em> and <em>Layers</em>.
-Sources define where the geospatial features to display the map are loaded from. 
+Sources define where the geospatial features to display the map are loaded from.
 They can be GeoJSON, Mapbox Vector Tiles (MVT) etc. We draw said features
-on map using <em>Layers</em>. </p>
-<p>A <em>Layer</em> references a single source. This is where expressions kick in. 
-Expressions define how the data from a source will be painted in a layer 
-following a style. For example, a heatmap, requires the ability to paint 
-features in different zoom levels with different colors. Expressions 
-facilitate that. The rendering depends on the style of the layer along with 
-pitch, bearing, and zoom of the map. This was called <em>Data Driven Styling (DDS)</em>. 
-Another option that was used was to completely change the style in run time to 
+on map using <em>Layers</em>.</p>
+<p>A <em>Layer</em> references a single source. This is where expressions kick in.
+Expressions define how the data from a source will be painted in a layer
+following a style. For example, a heatmap, requires the ability to paint
+features in different zoom levels with different colors. Expressions
+facilitate that. The rendering depends on the style of the layer along with
+pitch, bearing, and zoom of the map. This was called <em>Data Driven Styling (DDS)</em>.
+Another option that was used was to completely change the style in run time to
 achieve the same outcome<sup class="footnote-reference"><a href="#17">1</a></sup>.</p>
 <p>The desire of being able to render a layer in different zoom levels
 differently based on data drove the birth of <em>expressions</em>. To
@@ -201,23 +208,23 @@ property dependent, or in zoom and property dependent manner.</p>
 <p>For a simple example of an expression, we will build a layer that displays
 a text field fixed text <code>hello world</code> for all features in a vector source:</p>
 <pre><code class="language-json">{
-  &quot;id&quot;: &quot;test&quot;,
-  &quot;type&quot;: &quot;symbol&quot;,
-  &quot;source&quot;: &quot;source&quot;,
-  &quot;layout&quot;: { &quot;text-field&quot;: &quot;Hello world&quot; }
+  "id": "test",
+  "type": "symbol",
+  "source": "source",
+  "layout": { "text-field": "Hello world" }
 }
 </code></pre>
-<p>If we wanted it instead to display the name property of each feature, 
+<p>If we wanted it instead to display the name property of each feature,
 we can use an expression like this:</p>
-<pre><code class="language-json">{ &quot;text-field&quot;: [&quot;get&quot;, &quot;name&quot;] }
+<pre><code class="language-json">{ "text-field": ["get", "name"] }
 </code></pre>
 <p>We can also mutate the value fetched from properties of the features. For
 examplel, we can append a prefix <code>Hello</code> to the name by using the <code>concat</code>
 expression:</p>
-<pre><code class="language-json">{ &quot;text-field&quot;: [&quot;concat&quot;, &quot;Hello, &quot;, [&quot;get&quot;, &quot;name&quot;]] }
+<pre><code class="language-json">{ "text-field": ["concat", "Hello, ", ["get", "name"]] }
 </code></pre>
-<p>By now, you probably have figured it out that expressions use a JSON-like 
-syntax to define. For brevity, let's look at the construction of an example 
+<p>By now, you probably have figured it out that expressions use a JSON-like
+syntax to define. For brevity, let's look at the construction of an example
 expression below:</p>
 <pre><code>'^': [
 NumberType,
@@ -242,26 +249,26 @@ extending expressions library with custom expressions if desired.</p>
 <p>In the example expression, we saw how one expression is defined. The
 example also shows that expressions have types. Expression language can
 accept input and output types of null, number, string, boolean, color,
-object, value, array, error, collator, and formatted. The canonical 
-definition of Expressions is rooted in JSON. Like JSON, <code>object</code> type 
+object, value, array, error, collator, and formatted. The canonical
+definition of Expressions is rooted in JSON. Like JSON, <code>object</code> type
 is the mapping key type that maps a set of <em>keys</em> to <em>values</em>.</p>
 <p>Beside the aforementioned data types, Expressions offer built-in functions
-or operators such as assertion, coalesce, interpolate, distance etc. 
-The code uses the word <em>kind</em> to differentiate between these. 
+or operators such as assertion, coalesce, interpolate, distance etc.
+The code uses the word <em>kind</em> to differentiate between these.
 Each <em>kind</em> of expression performs a single responsibility.</p>
 <p><em>Assertion expressions</em> assert the returning type from one expression is
 asserted before putting into another. For example, a filter expression
-of <code>[&quot;get&quot;, &quot;feature_property&quot;]</code>, returns a generic <em>value</em> type. To
+of <code>["get", "feature_property"]</code>, returns a generic <em>value</em> type. To
 use it on another expression that accepts a string type, an assertion
-such as <code>[&quot;string&quot;, [&quot;get&quot;, &quot;feature_property&quot;]]</code> is necessary.
+such as <code>["string", ["get", "feature_property"]]</code> is necessary.
 Assertion throws an evaluation-time error if the types don't match
-during evaluation. </p>
-<p>You might think this is a <em>coercion</em> instead of an <em>assertion</em>. If you are 
-seeking for coercions, read the upcoming paragraph. Expression names 
+during evaluation.</p>
+<p>You might think this is a <em>coercion</em> instead of an <em>assertion</em>. If you are
+seeking for coercions, read the upcoming paragraph. Expression names
 that looks like <code>to-something</code> are coercions by convention.</p>
 <p><em>Coercion expressions</em> convert a return type to another type. It also
 allows to define a fallback if the conversion fails. A good example of
-this is <em>to-number</em> expression. For example, <code>[&quot;to-number&quot;, [&quot;get&quot;, &quot;feature_property&quot;], 0]</code> means that we are trying to cover the
+this is <em>to-number</em> expression. For example, <code>["to-number", ["get", "feature_property"], 0]</code> means that we are trying to cover the
 feature-property to a number. If it fails, we will use 0 as a fallback.</p>
 <p><em>Camera expressions</em> are expressions that allow style property
 manipulation based on zoom, pitch, and distance from center.</p>
@@ -306,7 +313,7 @@ evaluation result will result in a new style load in the rendering loop.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../design/archictural-problems-and-recommendations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../design/archictural-problems-and-recommendations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -320,7 +327,7 @@ evaluation result will result in a new style load in the rendering loop.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../design/archictural-problems-and-recommendations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../design/archictural-problems-and-recommendations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

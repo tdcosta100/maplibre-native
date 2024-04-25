@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="../diff.css">
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,31 +61,38 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="../design/index.html"><strong aria-hidden="true">1.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../design/ten-thousand-foot-view.html" class="active"><strong aria-hidden="true">1.1.</strong> Ten Thousand Foot View</a></li><li class="chapter-item expanded "><a href="../design/coordinate-system.html"><strong aria-hidden="true">1.2.</strong> Coordinate System</a></li><li class="chapter-item expanded "><a href="../design/expressions.html"><strong aria-hidden="true">1.3.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="../design/archictural-problems-and-recommendations.html"><strong aria-hidden="true">1.4.</strong> Architectural Problems and Recommendations</a></li><li class="chapter-item expanded "><a href="../design/android-map-rendering-data-flow.html"><strong aria-hidden="true">1.5.</strong> Android Map Rendering Data Flow</a></li><li class="chapter-item expanded "><a href="../design/geometry-tile-worker.html"><strong aria-hidden="true">1.6.</strong> Geometry Tile Worker</a></li></ol></li><li class="chapter-item expanded "><a href="../android/index.html"><strong aria-hidden="true">2.</strong> MapLibre Native for Android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/getting-started-guide.html"><strong aria-hidden="true">2.1.</strong> Quickstart</a></li><li class="chapter-item expanded "><a href="../android/annotation-guide.html"><strong aria-hidden="true">2.2.</strong> Annotation: Marker</a></li><li class="chapter-item expanded "><a href="../android/location-component-guide.html"><strong aria-hidden="true">2.3.</strong> Location Component</a></li></ol></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -116,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -201,7 +208,7 @@ composed of multiple <em>layers</em>.</p>
 </li>
 <li>
 <p>A <em><strong>Layer</strong></em> requires <em><strong>Style</strong></em>, <em><strong>Glyphs</strong></em>, and <em><strong>Sprites</strong></em>
-for to be ready for rendering. Features rendered in a <em><strong>Layer</strong></em> 
+for to be ready for rendering. Features rendered in a <em><strong>Layer</strong></em>
 come from data sources. And a <em><strong>Layer</strong></em> is composed of tiles produced
 from said features.</p>
 </li>
@@ -270,17 +277,17 @@ characters<sup class="footnote-reference"><a href="#5">5</a></sup>. Map tiles us
 administrative boundaries, or street names. Map tiles also need to show
 icons for amenities like bus stops and parks. A map style uses character
 map from fonts to display labels and icons. Collectively these are
-called <em>glyphs.</em> </p>
-<p><em>Glyphs</em> require resizing, rotation, and a halo for clarity in nearly every 
-interaction with the map. To achieve this, all <em>glyphs</em> are pre-rendered 
+called <em>glyphs.</em></p>
+<p><em>Glyphs</em> require resizing, rotation, and a halo for clarity in nearly every
+interaction with the map. To achieve this, all <em>glyphs</em> are pre-rendered
 in a shared texture, called <em>texture atlas</em>. This atlas is packed inside
 protobuf container. Each element of the atlas is an individual texture
 representing the SDF of the character to render.</p>
 <p>Each <em>glyph</em> bitmap inside is a field of floats, named signed distance. It
-represents how a <em>glyph</em> should be drawn by the GPU. Each <em>glyph</em> is of font 
+represents how a <em>glyph</em> should be drawn by the GPU. Each <em>glyph</em> is of font
 size 24 that stores the distance to the next outline in every pixel. Easily
 put if the pixel is inside the <em>glyph</em> outline it has a value between <code>192-255</code>.
-Every pixel outside the <em>glyph</em> outline has a value between <code>0-191</code>. This creates 
+Every pixel outside the <em>glyph</em> outline has a value between <code>0-191</code>. This creates
 a black and white atlas of all the <em>glyphs</em> inside.</p>
 <p>This document currently does not have a dedicated section on text rendering.
 When it does, we will dive more into <em>glyph</em> rendering.</p>
@@ -342,7 +349,7 @@ check <a href="./geometry-tile-worker.html">Geometry Tile Worker</a> chapter.</p
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>To read in depth about the data flow for map initialization and
-rendering in Android, please check 
+rendering in Android, please check
 <a href="./android-map-rendering-data-flow.html">Android Map Rendering Data Flow</a></p>
 </div>
 <div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
@@ -386,7 +393,7 @@ for rendering loop.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../design/coordinate-system.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../design/coordinate-system.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -400,7 +407,7 @@ for rendering loop.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../design/coordinate-system.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../design/coordinate-system.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
