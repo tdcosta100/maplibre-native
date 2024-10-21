@@ -1,0 +1,14 @@
+{
+  "base_test_path": "integration",
+  "cache_path": "cache-style.db",
+  "expectation_paths": [
+  ],
+  "ignore_paths": [
+      "ignores/platform-all.json"
+  ],
+  "metric_path": "linux-gcc8-release",
+  "probes": [
+      "probeGFX",
+      "probeNetwork"
+  ]
+}
