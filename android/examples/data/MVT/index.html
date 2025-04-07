@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://www.maplibre.org/maplibre-native/android/examples/">
+        <link rel="canonical" href="https://www.maplibre.org/maplibre-native/android/examples/data/MVT/">
       
       
+        <link rel="prev" href="../../camera/zoom-methods/">
       
-        <link rel="next" href="configuration/">
+      
+        <link rel="next" href="../PMTiles/">
       
       
       <link rel="icon" href="https://maplibre.org/favicon.ico">
@@ -22,14 +24,14 @@
     
     
       
-        <title>MapLibre Android Examples</title>
+        <title>Vector Tiles - MapLibre Android Examples</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,9 +50,9 @@
       
     
     
-      <link rel="stylesheet" href="assets/extra.css">
+      <link rel="stylesheet" href="../../assets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -59,11 +61,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="MapLibre Android Examples" >
+        <meta  property="og:title"  content="Vector Tiles - MapLibre Android Examples" >
       
         <meta  property="og:description"  content="MapLibre Android Examples" >
       
-        <meta  property="og:image"  content="https://www.maplibre.org/maplibre-native/android/examples/assets/images/social/index.png" >
+        <meta  property="og:image"  content="https://www.maplibre.org/maplibre-native/android/examples/assets/images/social/data/MVT.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -71,15 +73,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://www.maplibre.org/maplibre-native/android/examples/" >
+        <meta  property="og:url"  content="https://www.maplibre.org/maplibre-native/android/examples/data/MVT/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="MapLibre Android Examples" >
+        <meta  name="twitter:title"  content="Vector Tiles - MapLibre Android Examples" >
       
         <meta  name="twitter:description"  content="MapLibre Android Examples" >
       
-        <meta  name="twitter:image"  content="https://www.maplibre.org/maplibre-native/android/examples/assets/images/social/index.png" >
+        <meta  name="twitter:image"  content="https://www.maplibre.org/maplibre-native/android/examples/assets/images/social/data/MVT.png" >
       
     
     
@@ -102,7 +104,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#maplibre-android-examples" class="md-skip">
+        <a href="#vector-tiles" class="md-skip">
           Skip to content
         </a>
       
@@ -118,9 +120,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="MapLibre Android Examples" class="md-header__button md-logo" aria-label="MapLibre Android Examples" data-md-component="logo">
+    <a href="../.." title="MapLibre Android Examples" class="md-header__button md-logo" aria-label="MapLibre Android Examples" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -137,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MapLibre Android Examples
+              Vector Tiles
             
           </span>
         </div>
@@ -267,9 +269,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="MapLibre Android Examples" class="md-nav__button md-logo" aria-label="MapLibre Android Examples" data-md-component="logo">
+    <a href="../.." title="MapLibre Android Examples" class="md-nav__button md-logo" aria-label="MapLibre Android Examples" data-md-component="logo">
       
-  <img src="assets/logo.svg" alt="logo">
+  <img src="../../assets/logo.svg" alt="logo">
 
     </a>
     MapLibre Android Examples
@@ -293,32 +295,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    MapLibre Android Examples
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -329,44 +309,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#open-source-apps-using-maplibre-android" class="md-nav__link">
-    <span class="md-ellipsis">
-      Open-Source Apps Using MapLibre Android
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      See Also
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -378,7 +320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="configuration/" class="md-nav__link">
+      <a href="../../configuration/" class="md-nav__link">
         
   
   
@@ -400,7 +342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="geojson-guide/" class="md-nav__link">
+      <a href="../../geojson-guide/" class="md-nav__link">
         
   
   
@@ -422,7 +364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="getting-started/" class="md-nav__link">
+      <a href="../../getting-started/" class="md-nav__link">
         
   
   
@@ -444,7 +386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="location-component/" class="md-nav__link">
+      <a href="../../location-component/" class="md-nav__link">
         
   
   
@@ -466,7 +408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="snapshotter/" class="md-nav__link">
+      <a href="../../snapshotter/" class="md-nav__link">
         
   
   
@@ -531,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="annotations/add-markers/" class="md-nav__link">
+      <a href="../../annotations/add-markers/" class="md-nav__link">
         
   
   
@@ -554,7 +496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="annotations/marker-annotations/" class="md-nav__link">
+      <a href="../../annotations/marker-annotations/" class="md-nav__link">
         
   
   
@@ -627,7 +569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/animation-types/" class="md-nav__link">
+      <a href="../../camera/animation-types/" class="md-nav__link">
         
   
   
@@ -650,7 +592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/animator-animation/" class="md-nav__link">
+      <a href="../../camera/animator-animation/" class="md-nav__link">
         
   
   
@@ -673,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/cameraposition/" class="md-nav__link">
+      <a href="../../camera/cameraposition/" class="md-nav__link">
         
   
   
@@ -696,7 +638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/gesture-detector/" class="md-nav__link">
+      <a href="../../camera/gesture-detector/" class="md-nav__link">
         
   
   
@@ -719,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/lat-lng-bounds/" class="md-nav__link">
+      <a href="../../camera/lat-lng-bounds/" class="md-nav__link">
         
   
   
@@ -742,7 +684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/max-min-zoom/" class="md-nav__link">
+      <a href="../../camera/max-min-zoom/" class="md-nav__link">
         
   
   
@@ -765,7 +707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/move-map-pixels/" class="md-nav__link">
+      <a href="../../camera/move-map-pixels/" class="md-nav__link">
         
   
   
@@ -788,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="camera/zoom-methods/" class="md-nav__link">
+      <a href="../../camera/zoom-methods/" class="md-nav__link">
         
   
   
@@ -815,8 +757,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -827,11 +771,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
@@ -847,7 +791,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             Data
@@ -858,10 +802,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="data/MVT/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -872,6 +825,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -884,7 +838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="data/PMTiles/" class="md-nav__link">
+      <a href="../PMTiles/" class="md-nav__link">
         
   
   
@@ -957,7 +911,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/animated-image-source/" class="md-nav__link">
+      <a href="../../styling/animated-image-source/" class="md-nav__link">
         
   
   
@@ -980,7 +934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/animated-symbol-layer/" class="md-nav__link">
+      <a href="../../styling/animated-symbol-layer/" class="md-nav__link">
         
   
   
@@ -1003,7 +957,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/building-layer/" class="md-nav__link">
+      <a href="../../styling/building-layer/" class="md-nav__link">
         
   
   
@@ -1026,7 +980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/circle-layer/" class="md-nav__link">
+      <a href="../../styling/circle-layer/" class="md-nav__link">
         
   
   
@@ -1049,7 +1003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/custom-sprite/" class="md-nav__link">
+      <a href="../../styling/custom-sprite/" class="md-nav__link">
         
   
   
@@ -1072,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/data-driven-style/" class="md-nav__link">
+      <a href="../../styling/data-driven-style/" class="md-nav__link">
         
   
   
@@ -1095,7 +1049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/distance-expression/" class="md-nav__link">
+      <a href="../../styling/distance-expression/" class="md-nav__link">
         
   
   
@@ -1118,7 +1072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/draggable-marker/" class="md-nav__link">
+      <a href="../../styling/draggable-marker/" class="md-nav__link">
         
   
   
@@ -1141,7 +1095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="styling/live-realtime-data/" class="md-nav__link">
+      <a href="../../styling/live-realtime-data/" class="md-nav__link">
         
   
   
@@ -1180,7 +1134,7 @@
 
 
   
-    <a href="https://github.com/maplibre/maplibre-native/edit/main/platform/android/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/maplibre/maplibre-native/edit/main/platform/android/docs/data/MVT.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1188,45 +1142,35 @@
   
 
 
-<h1 id="maplibre-android-examples">MapLibre Android Examples</h1>
-<p>Welcome to the examples documentation of MapLibre Android.</p>
-<div class="grid cards">
-<ul>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4a8 8 0 0 1 8 8 8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8m0 2a6 6 0 0 0-6 6 6 6 0 0 0 6 6 6 6 0 0 0 6-6 6 6 0 0 0-6-6m-1 2h1.5v3.78l2.33 2.33-1.06 1.06L14 12.4zM2 18a1 1 0 0 1-1-1 1 1 0 0 1 1-1h3.83c.31.71.71 1.38 1.17 2zm1-5a1 1 0 0 1-1-1 1 1 0 0 1 1-1h2.05L5 12l.05 1zm1-5a1 1 0 0 1-1-1 1 1 0 0 1 1-1h3c-.46.62-.86 1.29-1.17 2z"/></svg></span> <strong>Quickstart</strong></p>
-<hr />
-<p>Learn how to include MapLibre Android in your project</p>
-<p><a href="getting-started/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Getting started</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M94.12 315.1c0 25.9-21.16 47.06-47.06 47.06S0 341 0 315.1s21.16-47.06 47.06-47.06h47.06zm23.72 0c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06v117.84c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06zm47.06-188.98c-25.9 0-47.06-21.16-47.06-47.06S139 32 164.9 32s47.06 21.16 47.06 47.06v47.06zm0 23.72c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06H47.06C21.16 243.96 0 222.8 0 196.9s21.16-47.06 47.06-47.06zm188.98 47.06c0-25.9 21.16-47.06 47.06-47.06S448 171 448 196.9s-21.16 47.06-47.06 47.06h-47.06zm-23.72 0c0 25.9-21.16 47.06-47.06 47.06s-47.06-21.16-47.06-47.06V79.06c0-25.9 21.16-47.06 47.06-47.06s47.06 21.16 47.06 47.06zM283.1 385.88c25.9 0 47.06 21.16 47.06 47.06S309 480 283.1 480s-47.06-21.16-47.06-47.06v-47.06zm0-23.72c-25.9 0-47.06-21.16-47.06-47.06s21.16-47.06 47.06-47.06h117.84c25.9 0 47.06 21.16 47.06 47.06s-21.16 47.06-47.06 47.06z"/></svg></span> <strong>Find us on Slack</strong></p>
-<hr />
-<p>Discuss the project and ask questions in the <code>#maplibre-android</code> channel</p>
-<p><a href="https://osmus.slack.com/archives/C01G3D28DAB"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Slack</a></p>
-</li>
-<li>
-<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3"/></svg></span> <strong>Contribute to these Docs</strong></p>
-<hr />
-<p>Share your own examples with the community!</p>
-<p><a href="https://github.com/maplibre/maplibre-native/tree/main/platform/android/docs"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Documentation on GitHub</a></p>
-</li>
-</ul>
+<h1 id="vector-tiles">Vector Tiles</h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can find the full source code of this example in <a href="https://github.com/maplibre/maplibre-native/blob/main/platform/android/MapLibreAndroidTestApp/src/main/java/org/maplibre/android/testapp/activity/sources/VectorTileActivity.kt"><code>VectorTileActivity.kt</code></a> of the MapLibreAndroidTestApp.</p>
 </div>
-<h2 id="open-source-apps-using-maplibre-android">Open-Source Apps Using MapLibre Android</h2>
-<p>You can learn how to use the API from MapLibre Android by stuying the source code of existing apps that intergrate MapLibre Android. Here are some open-source apps that use MapLibre Android:</p>
-<ul>
-<li><a href="https://github.com/streetcomplete/StreetComplete">Streetcomplete</a> (<a href="https://github.com/search?q=repo%3Astreetcomplete%2FStreetComplete%20maplibre&amp;type=code">source code</a>)</li>
-<li><a href="https://github.com/wikimedia/apps-android-wikipedia">The official Wikipedia app for Android</a> (<a href="https://github.com/search?q=repo%3Awikimedia%2Fapps-android-wikipedia%20maplibre&amp;type=code">source code</a>).</li>
-<li><a href="https://github.com/maplibre/maplibre-native/tree/main/platform/android/MapLibreAndroidTestApp">MapLibreAndroidTestApp</a>. This app is part of the MapLibre Native repository and is used for (automated) testing. Many of the examples in this documentation site come directly from this app.</li>
-</ul>
-<h2 id="see-also">See Also</h2>
-<ul>
-<li><a href="https://maplibre.org/maplibre-native/android/api/">MapLibre Android API Documentation</a></li>
-<li><a href="https://github.com/maplibre/maplibre-native/tree/main/platform/android">Source code on GitHub</a></li>
-<li><a href="https://github.com/maplibre/maplibre-native/releases?q=android-v11&amp;expanded=true">Latest releases</a></li>
-<li><a href="https://github.com/maplibre/maplibre-native/discussions/categories/q-a?discussions_q=is%3Aopen+category%3AQ%26A+label%3Aandroid">GitHub Discussions</a></li>
-<li><a href="https://slack.openstreetmap.us">MapLibre on Slack</a>. Join the <code>#maplibre-native</code> and <code>#maplibre-android</code> channels.</li>
-</ul>
+<p>You can specify where to load MVTs (which sometimes have <code>.pbf</code> extension) by creating a <code>TileSet</code> object with template parameters (for example <code>{z}</code> which will be replaced with the zoom level).</p>
+<p>MapLibre has <a href="https://github.com/maplibre/demotiles/tree/gh-pages/tiles-omt">a repo</a> with some example vector tiles with the OpenMapTiles schema around Innsbruck, Austria. In the example we load these MVTs and create a line layer for the road network.</p>
+<div class="language-kotlin highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">tileset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TileSet</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s">&quot;openmaptiles&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s">&quot;https://demotiles.maplibre.org/tiles-omt/{z}/{x}/{y}.pbf&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kd">val</span><span class="w"> </span><span class="nv">openmaptiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VectorSource</span><span class="p">(</span><span class="s">&quot;openmaptiles&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">tileset</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">style</span><span class="p">.</span><span class="na">addSource</span><span class="p">(</span><span class="n">openmaptiles</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kd">val</span><span class="w"> </span><span class="nv">roadLayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LineLayer</span><span class="p">(</span><span class="s">&quot;road&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;openmaptiles&quot;</span><span class="p">).</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">setSourceLayer</span><span class="p">(</span><span class="s">&quot;transportation&quot;</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="n">setProperties</span><span class="p">(</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="n">lineColor</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">),</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">lineWidth</span><span class="p">(</span><span class="m">2.0f</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<figure>
+  <img alt="Screenshot of road overlay from vector tile source" src="https://dwxvn1oqw6mkc.cloudfront.net/android-documentation-resources/vectortilesource.png" width="400" />
+
+<caption>
+    <p class="inline-attribution">Map data <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>. © <a href="https://openmaptiles.org/">OpenMapTiles</a>.</p>
+</caption>
+
+</figure>
 
 
 
@@ -1343,10 +1287,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy", "search.suggest", "navigation.instant", "navigation.sections", "content.action.edit", "toc.integrate"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "search.suggest", "navigation.instant", "navigation.sections", "content.action.edit", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
   </body>
