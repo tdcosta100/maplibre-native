@@ -3,43 +3,80 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Release - MapLibre Native Developer Documentation</title>
+        <title>Documentation - MapLibre Native Developer Documentation</title>
 
 
         <!-- Custom HTML head -->
+        <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.6.0/+esm';
+        
+        const darkThemes = ['ayu', 'navy', 'coal'];
+        const lightThemes = ['light', 'rust'];
+        
+        const classList = document.getElementsByTagName('html')[0].classList;
+        
+        let lastThemeWasLight = true;
+        for (const cssClass of classList) {
+            if (darkThemes.includes(cssClass)) {
+                lastThemeWasLight = false;
+                break;
+            }
+        }
+        
+        const theme = lastThemeWasLight ? 'default' : 'dark';
+        mermaid.initialize({ startOnLoad: true, theme });
+        
+        // Simplest way to make mermaid re-render the diagrams in the new theme is via refreshing the page
+        
+        for (const darkTheme of darkThemes) {
+            document.getElementById(darkTheme).addEventListener('click', () => {
+                if (lastThemeWasLight) {
+                    window.location.reload();
+                }
+            });
+        }
+        
+        for (const lightTheme of lightThemes) {
+            document.getElementById(lightTheme).addEventListener('click', () => {
+                if (!lastThemeWasLight) {
+                    window.location.reload();
+                }
+            });
+        }
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../diff.css">
+        <link rel="stylesheet" href="../../diff.css">
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -92,7 +129,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -127,7 +164,7 @@
                     <h1 class="menu-title">MapLibre Native Developer Documentation</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -223,44 +260,43 @@
 }
 
 </style>
-<h1 id="release-maplibre-ios"><a class="header" href="#release-maplibre-ios">Release MapLibre iOS</a></h1>
-<p>We make iOS releases to GitHub (a downloadable XCFramework), the <a href="https://swiftpackageindex.com/maplibre/maplibre-gl-native-distribution">Swift Package Index</a> and <a href="https://cocoapods.org/">CocoaPods</a>. Everyone with write access to the repository is able to make releases using the instructions below.</p>
-<p>Also see the current <a href="../release-policy.html">release policy</a>.</p>
-<h2 id="making-a-release"><a class="header" href="#making-a-release">Making a release</a></h2>
-<ol>
-<li>
-<p>Prepare a PR, see <a href="https://github.com/maplibre/maplibre-native/pull/3193">this PR</a> as an example.</p>
-<ul>
-<li>Update the <a href="https://github.com/maplibre/maplibre-native/blob/main/platform/ios/CHANGELOG.md">changelog</a>. The changelog should contain links to all relevant PRs for iOS since the last release. You can use the script below with a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">GitHub access token</a> with the <code>public_repo</code> scope. You will need to filter out PRs that do not relate to iOS.
-<pre><code>GITHUB_ACCESS_TOKEN=... node scripts/generate-changelog.mjs ios
+<h1 id="documentation-for-maplibre-android"><a class="header" href="#documentation-for-maplibre-android">Documentation for MapLibre Android</a></h1>
+<h2 id="api-documentation"><a class="header" href="#api-documentation">API Documentation</a></h2>
+<p>We use Dokka for the MapLibre Android API documentation. The live documentation site can be found <a href="https://maplibre.org/maplibre-native/android/api/">here</a>.</p>
+<h2 id="examples-documentation"><a class="header" href="#examples-documentation">Examples Documentation</a></h2>
+<p>The documentation site with examples uses MkDocs along with <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>. You can check out the site <a href="https://maplibre.org/maplibre-native/android/examples/">here</a>.</p>
+<h3 id="building"><a class="header" href="#building">Building</a></h3>
+<p>To build the Examples Documentation you need to have Docker installed.</p>
+<p>From <code>platform/android</code>, run:</p>
+<pre><code>make mkdocs
 </code></pre>
-The heading in the changelog must match <code>## &lt;VERSION&gt;</code> exactly, or it will not be picked up. For example, for version 6.0.0:
-<pre><code class="language-md">## 6.0.0
+<p>Next, visit <a href="http://localhost:8000/maplibre-native/android/examples/"><code>http://localhost:8000/maplibre-native/android/examples/</code></a>.</p>
+<h3 id="snippets"><a class="header" href="#snippets">Snippets</a></h3>
+<p>We use <a href="https://facelessuser.github.io/pymdown-extensions/extensions/snippets/#snippet-sections">a Markdown extension for snippets</a>. This way code can be referenced instead of copy pasted into the documentation. This avoids code examples from becoming out of date or failing to compile. The syntax is as follows:</p>
+<pre><code class="language-kotlin">// --8&lt;-- [start:fun]
+fun double(x: Int): Int {
+    return 2 * x
+}
+// --8&lt;-- [end:fun]
 </code></pre>
-</li>
-<li>Update the <code>VERSION</code> file in <code>platform/ios/VERSION</code> with the version to be released. We use <a href="https://semver.org/">semantic versioning</a>, so any breaking changes require a major version bump. Use a minor version bump when functionality has been added in a backward compatible manner, and a patch version bump when the release contains only backward compatible bug fixes.</li>
-</ul>
-</li>
-<li>
-<p>Once the PR is merged the <code>ios-ci.yml</code> workflow will detect that the <code>VERSION</code> file is changed, and a release will be made automatically.</p>
-</li>
-</ol>
-<h2 id="pre-release"><a class="header" href="#pre-release">Pre-release</a></h2>
-<p>Run the <code>ios-ci</code> workflow. You can use the <a href="https://cli.github.com/manual/gh_workflow_run">GitHub CLI</a>:</p>
-<pre><code>gh workflow run ios-ci.yml -f release=pre --ref main
+<p>Next, you'll be able to reference that piece of code in Markdown like so:</p>
+<pre><code>--8&lt;-- "example.kt:fun"
 </code></pre>
-<p>Or run the workflow from the Actions tab on GitHub.</p>
-<p>The items under the <code>## main</code> heading in <code>platform/ios/CHANGELOG.md</code> will be used as changelog for the pre-release.</p>
+<p>Where <code>example.kt</code> is the path to the file.</p>
+<h3 id="static-assets"><a class="header" href="#static-assets">Static Assets</a></h3>
+<p>Static assets are ideally uploaded to the <a href="https://maplibre-native.s3.eu-central-1.amazonaws.com/index.html#android-documentation-resources/">MapLibre Native S3 Bucket</a>.</p>
+<p>Please open an issue with the ARN of your AWS account to get upload privileges.</p>
+<p>You can use the macro <code>{{ s3_url("filename.example") }}</code> which will use a CDN instead of linking to the S3 bucket directly.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ios/ios-documentation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../platforms/android/android-tests.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../ios/dev-apps.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../platforms/android/benchmark.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -270,11 +306,11 @@ The heading in the changelog must match <code>## &lt;VERSION&gt;</code> exactly,
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ios/ios-documentation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../platforms/android/android-tests.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../ios/dev-apps.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../platforms/android/benchmark.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -289,13 +325,13 @@ The heading in the changelog must match <code>## &lt;VERSION&gt;</code> exactly,
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

@@ -3,43 +3,80 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Benchmark - MapLibre Native Developer Documentation</title>
+        <title>iOS - MapLibre Native Developer Documentation</title>
 
 
         <!-- Custom HTML head -->
+        <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.6.0/+esm';
+        
+        const darkThemes = ['ayu', 'navy', 'coal'];
+        const lightThemes = ['light', 'rust'];
+        
+        const classList = document.getElementsByTagName('html')[0].classList;
+        
+        let lastThemeWasLight = true;
+        for (const cssClass of classList) {
+            if (darkThemes.includes(cssClass)) {
+                lastThemeWasLight = false;
+                break;
+            }
+        }
+        
+        const theme = lastThemeWasLight ? 'default' : 'dark';
+        mermaid.initialize({ startOnLoad: true, theme });
+        
+        // Simplest way to make mermaid re-render the diagrams in the new theme is via refreshing the page
+        
+        for (const darkTheme of darkThemes) {
+            document.getElementById(darkTheme).addEventListener('click', () => {
+                if (lastThemeWasLight) {
+                    window.location.reload();
+                }
+            });
+        }
+        
+        for (const lightTheme of lightThemes) {
+            document.getElementById(lightTheme).addEventListener('click', () => {
+                if (!lastThemeWasLight) {
+                    window.location.reload();
+                }
+            });
+        }
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../diff.css">
+        <link rel="stylesheet" href="../../diff.css">
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -92,7 +129,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -127,7 +164,7 @@
                     <h1 class="menu-title">MapLibre Native Developer Documentation</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -223,90 +260,70 @@
 }
 
 </style>
-<h1 id="benchmark"><a class="header" href="#benchmark">Benchmark</a></h1>
-<p>We have created a rendering performance benchmark for Android. The logic for this benchmark is encapsulated in <code>BenchMarkActivity.kt</code>.</p>
-<h2 id="styles"><a class="header" href="#styles">Styles</a></h2>
-<p>We have hardcoded various styles, which you can override with a <code>developer-config.xml</code> by adding some XML with the following structure:</p>
-<pre><code>&lt;array name="benchmark_style_names"&gt;
-  &lt;item&gt;Americana&lt;/item&gt;
-&lt;/array&gt;
-&lt;array name="benchmark_style_urls"&gt;
-  &lt;item&gt;https://americanamap.org/style.json&lt;/item&gt;
-&lt;/array&gt;
+<h1 id="maplibre-ios-developer-guide"><a class="header" href="#maplibre-ios-developer-guide">MapLibre iOS Developer Guide</a></h1>
+<h2 id="bazel"><a class="header" href="#bazel">Bazel</a></h2>
+<p><a href="https://bazel.build/">Bazel</a> is used for building on iOS.</p>
+<p>You can generate an Xcode project thanks to <a href="https://github.com/MobileNativeFoundation/rules_xcodeproj">rules_xcodeproj</a> intergration.</p>
+<p>You need to install <a href="https://github.com/bazelbuild/bazelisk">bazelisk</a>, which is a wrapper around Bazel which ensures that the version specified in <code>.bazelversion</code> is used.</p>
+<pre><code>brew install bazelisk
 </code></pre>
-<h2 id="retrieving-results"><a class="header" href="#retrieving-results">Retrieving Results</a></h2>
-<p>Results are logged to the console as they come in. After the benchmark is done running a <code>benchmark_results.json</code> file is generated. You can pull it off the device with for example adb:</p>
-<pre><code>adb shell "run-as org.maplibre.android.testapp cat files/benchmark_results.json" \
-  &gt; benchmark_results.json
+<h3 id="creating-configbzl"><a class="header" href="#creating-configbzl">Creating <code>config.bzl</code></a></h3>
+<p>Configure Bazel, otherwise the default config will get used.</p>
+<pre><code>cp platform/darwin/bazel/example_config.bzl platform/darwin/bazel/config.bzl
 </code></pre>
-<h2 id="results"><a class="header" href="#results">Results</a></h2>
-<p>The <code>benchmark_results.json</code> containing the benchmark results will have the following structure.</p>
-<pre><code class="language-json">{
-  "results": [
-    {
-      "styleName": "AWS Open Data Standard Light",
-      "syncRendering": true,
-      "thermalState": 0,
-      "fps": 34.70237085812839,
-      "avgEncodingTime": 19.818289053808947,
-      "avgRenderingTime": 7.7432454899654255,
-      "low1pEncodingTime": 91.72538138784371,
-      "low1pRenderingTime": 26.573758581509203
-    },
-  ],
-  "deviceManufacturer": "samsung",
-  "model": "SM-G973F",
-  "renderer": "drawable",
-  "debugBuild": true,
-  "gitRevision": "fc95b79880223e34c2ce80339f698d095e3d63cd",
-  "timestamp": 1736454325393
-}
+<p>You need to set your <code>BUNDLE_ID_PREFIX</code> to be unique (ideally use a domain that you own in reverse domain name notation).</p>
+<p>You can keep leave the <code>APPLE_MOBILE_PROVISIONING_PROFILE_NAME</code> alone.</p>
+<p>Set the Team ID to the Team ID of your Apple Developer Account (paid or unpaid both work). If you do not know your Team ID, go to your <a href="https://developer.apple.com/account">Apple Developer account</a>, log in, and scroll down to find your Team ID.</p>
+<p>If you don't already have a developer account, continue this guide and let Xcode generate a provisioning profile for you. You will need to update the Team ID later once a certificate is generated.</p>
+<h2 id="create-the-xcode-project"><a class="header" href="#create-the-xcode-project">Create the Xcode Project</a></h2>
+<p>Run the following commands:</p>
+<pre><code>bazel run //platform/ios:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
+xed platform/ios/MapLibre.xcodeproj
 </code></pre>
-<p>The meaning of the keys is as follows.</p>
-<div class="table-wrapper"><table><thead><tr><th>Key</th><th>Description</th></tr></thead><tbody>
-<tr><td>styleName</td><td>Name of the style being benchmarked</td></tr>
-<tr><td>syncRendering</td><td>Whether synchronous rendering was used</td></tr>
-<tr><td>thermalState</td><td>Thermal state of the device during benchmark</td></tr>
-<tr><td>fps</td><td>Average frames per second achieved during the benchmark</td></tr>
-<tr><td>avgEncodingTime</td><td>Average time taken for encoding in milliseconds</td></tr>
-<tr><td>avgRenderingTime</td><td>Average time taken for rendering in milliseconds</td></tr>
-<tr><td>low1pEncodingTime</td><td>1st percentile (worst case) encoding time in milliseconds</td></tr>
-<tr><td>low1pRenderingTime</td><td>1st percentile (worst case) rendering time in milliseconds</td></tr>
-<tr><td>deviceManufacturer</td><td>Manufacturer of the test device</td></tr>
-<tr><td>model</td><td>Model number/name of the test device</td></tr>
-<tr><td>renderer</td><td>Type of renderer used (<code>drawable</code> for Open GL ES, <code>vulkan</code> for Vulkan, <code>legacy</code> for the legacy Open GL ES rendering backend)</td></tr>
-<tr><td>debugBuild</td><td>Whether the build was a debug build</td></tr>
-<tr><td>gitRevision</td><td>Git commit hash of the code version</td></tr>
-<tr><td>timestamp</td><td>Unix timestamp of when the benchmark was run</td></tr>
-</tbody></table>
+<p>Then once in Xcode, click on "MapLibre" on the left, then "App" under Targets, then "Signing &amp; Capabilities" in the tabbed menu.
+Confirm that no errors are shown.</p>
+<img width="921" alt="image" src="https://github.com/polvi/maplibre-native/assets/649392/a1ef30cb-97fc-429a-acee-194436f3fb8a">
+<p>Try to run the example App in the simulator and on a device to confirm your setup works.</p>
+<div class="mdbook-alerts mdbook-alerts-important">
+<p class="mdbook-alerts-title">
+  <span class="mdbook-alerts-icon"></span>
+  important
+</p>
+<p>The Bazel configuration files are the source of truth of the build configuration. All changes to the build settings need to be done through Bazel, not in Xcode.</p>
 </div>
-<h2 id="large-scale-benchmarks-on-aws-device-farm"><a class="header" href="#large-scale-benchmarks-on-aws-device-farm">Large Scale Benchmarks on AWS Device Farm</a></h2>
-<p>Sometimes we do a large scale benchmark across a variety of devices on AWS Device Farm. We ran one such test in <a href="https://github.com/maplibre/maplibre-native/issues/2787#issuecomment-2466948888">November 2024</a> to compare the performance of the then new Vulkan rendering backend against the OpenGL ES backend. There are some scripts in the repo to kick off the tests and to collect and plot the results:</p>
-<pre><code>scripts/aws-device-farm/aws-device-farm-run.sh
-scripts/aws-device-farm/collect-benchmark-outputs.mjs
-scripts/aws-device-farm/update-benchmark-db.mjs
-scripts/aws-device-farm/plot-android-benchmark-results.py
+<h3 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h3>
+<h4 id="provisioning-profiles"><a class="header" href="#provisioning-profiles">Provisioning Profiles</a></h4>
+<p>If you get a Python <code>KeyError</code> when processing provisioning profiles, you probably have some <em>really</em> old or corrupted profiles.</p>
+<p>Have a look through <code>~/Library/MobileDevice/Provisioning\ Profiles</code> and remove any expired profiles. Removing all profiles here can also resolve some issues.</p>
+<h4 id="cleaning-bazel-environments"><a class="header" href="#cleaning-bazel-environments">Cleaning Bazel environments</a></h4>
+<p>You should almost never have to do this, but sometimes problems can be solved with:</p>
+<pre><code>bazel clean --expunge
 </code></pre>
-<h2 id="continuous-benchmarking"><a class="header" href="#continuous-benchmarking">Continuous Benchmarking</a></h2>
-<p>We are running the Android benchmark on every merge with <code>main</code>.</p>
-<p>You can find the results per commit <a href="https://maplibre-native.s3.eu-central-1.amazonaws.com/index.html#android-benchmark-render/">here</a> or pull them from our public S3 bucket:</p>
-<pre><code>aws s3 sync s3://maplibre-native/android-benchmark-render/ .
+<h2 id="using-bazel-from-the-command-line"><a class="header" href="#using-bazel-from-the-command-line">Using Bazel from the Command Line</a></h2>
+<p>It is also possible to build and run the test application in a simulator from the command line without opening Xcode.</p>
+<pre><code>bazel run //platform/ios:App --//:renderer=metal
 </code></pre>
-<h2 id="benchmarks-in-pull-request"><a class="header" href="#benchmarks-in-pull-request">Benchmarks in Pull Request</a></h2>
-<p>To run the benchmarks (for Android) include the following line on a PR comment:</p>
-<pre><code>!benchmark android
+<p>You can also build targets from the command line. For example, if you want to build your own XCFramework, see the 'Build XCFramework' step in the <a href="../../.github/workflows/ios-ci.yml">iOS CI workflow</a>.</p>
+<h2 id="cmake"><a class="header" href="#cmake">CMake</a></h2>
+<p>It is also possible to generate an Xcode project using CMake. As of February 2025, targets <code>mbgl-core</code>, <code>ios-sdk-static</code> and <code>app</code> (Objective-C development app) are supported.</p>
+<pre><code>cmake --preset ios -DDEVELOPMENT_TEAM_ID=YOUR_TEAM_ID
+xed build-ios/MapLibre\ Native.xcodeproj
 </code></pre>
-<p>A file with the benchmark results will be added to the workflow summary, which you can compare with the previous results in the bucket.</p>
+<h2 id="distribution"><a class="header" href="#distribution">Distribution</a></h2>
+<p>MapLibre iOS is distributed as an XCFramework via the <a href="https://github.com/maplibre/maplibre-gl-native-distribution">maplibre/maplibre-gl-native-distribution</a> repository. See <a href="./release.html">Release MapLibre iOS</a> for the release process. Refer to the <a href="https://github.com/maplibre/maplibre-native/blob/main/.github/workflows/ios-ci.yml"><code>ios-ci.yml</code></a> workflow for an up-to-date recipe for building an XCFramework. As of February 2025 we use:</p>
+<pre><code>bazel build --compilation_mode=opt --features=dead_strip,thin_lto --objc_enable_binary_stripping \
+  --apple_generate_dsym --output_groups=+dsyms --//:renderer=metal //platform/ios:MapLibre.dynamic --embed_label=maplibre_ios_"$(cat VERSION)"
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../android/android-documentation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../platforms/android/release.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../android/release.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../platforms/ios/ios-tests.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -316,11 +333,11 @@ scripts/aws-device-farm/plot-android-benchmark-results.py
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../android/android-documentation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../platforms/android/release.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../android/release.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../platforms/ios/ios-tests.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -335,13 +352,13 @@ scripts/aws-device-farm/plot-android-benchmark-results.py
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

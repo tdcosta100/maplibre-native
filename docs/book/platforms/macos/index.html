@@ -3,43 +3,80 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Documentation - MapLibre Native Developer Documentation</title>
+        <title>macOS - MapLibre Native Developer Documentation</title>
 
 
         <!-- Custom HTML head -->
+        <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.6.0/+esm';
+        
+        const darkThemes = ['ayu', 'navy', 'coal'];
+        const lightThemes = ['light', 'rust'];
+        
+        const classList = document.getElementsByTagName('html')[0].classList;
+        
+        let lastThemeWasLight = true;
+        for (const cssClass of classList) {
+            if (darkThemes.includes(cssClass)) {
+                lastThemeWasLight = false;
+                break;
+            }
+        }
+        
+        const theme = lastThemeWasLight ? 'default' : 'dark';
+        mermaid.initialize({ startOnLoad: true, theme });
+        
+        // Simplest way to make mermaid re-render the diagrams in the new theme is via refreshing the page
+        
+        for (const darkTheme of darkThemes) {
+            document.getElementById(darkTheme).addEventListener('click', () => {
+                if (lastThemeWasLight) {
+                    window.location.reload();
+                }
+            });
+        }
+        
+        for (const lightTheme of lightThemes) {
+            document.getElementById(lightTheme).addEventListener('click', () => {
+                if (!lastThemeWasLight) {
+                    window.location.reload();
+                }
+            });
+        }
+        </script>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../diff.css">
+        <link rel="stylesheet" href="../../diff.css">
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "../../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -92,7 +129,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -127,7 +164,7 @@
                     <h1 class="menu-title">MapLibre Native Developer Documentation</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -223,43 +260,79 @@
 }
 
 </style>
-<h1 id="documentation-for-maplibre-android"><a class="header" href="#documentation-for-maplibre-android">Documentation for MapLibre Android</a></h1>
-<h2 id="api-documentation"><a class="header" href="#api-documentation">API Documentation</a></h2>
-<p>We use Dokka for the MapLibre Android API documentation. The live documentation site can be found <a href="https://maplibre.org/maplibre-native/android/api/">here</a>.</p>
-<h2 id="examples-documentation"><a class="header" href="#examples-documentation">Examples Documentation</a></h2>
-<p>The documentation site with examples uses MkDocs along with <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>. You can check out the site <a href="https://maplibre.org/maplibre-native/android/examples/">here</a>.</p>
-<h3 id="building"><a class="header" href="#building">Building</a></h3>
-<p>To build the Examples Documentation you need to have Docker installed.</p>
-<p>From <code>platform/android</code>, run:</p>
-<pre><code>make mkdocs
+<h1 id="macos"><a class="header" href="#macos">macOS</a></h1>
+<p>MapLibre Native can be built for macOS. This is mostly used for development.</p>
+<div class="mdbook-alerts mdbook-alerts-note">
+<p class="mdbook-alerts-title">
+  <span class="mdbook-alerts-icon"></span>
+  note
+</p>
+<p>There are some <a href="https://developer.apple.com/documentation/appkit">AppKit</a> APIs for macOS the source tree. However those are not actively maintained. There is an <a href="https://github.com/maplibre/maplibre-native/discussions/3414">discussion</a> on whether we should remove this code.</p>
+</div>
+<h2 id="file-structure"><a class="header" href="#file-structure">File Structure</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Path</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>platform/darwin</code></td><td>Shared code between macOS and iOS</td></tr>
+<tr><td><code>platform/darwin/core</code></td><td>iOS/macOS specific implementations for interfaces part of the MapLibre Native C++ Core</td></tr>
+<tr><td><code>platform/macos</code></td><td>macOS specific code</td></tr>
+<tr><td><code>platform/macos/app</code></td><td>AppKit based example app</td></tr>
+</tbody></table>
+</div>
+<h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
+<p>Clone the repo:</p>
+<pre><code class="language-sh">git clone --recurse-submodules git@github.com:maplibre/maplibre-native.git
 </code></pre>
-<p>Next, visit <a href="http://localhost:8000/maplibre-native/android/examples/"><code>http://localhost:8000/maplibre-native/android/examples/</code></a>.</p>
-<h3 id="snippets"><a class="header" href="#snippets">Snippets</a></h3>
-<p>We use <a href="https://facelessuser.github.io/pymdown-extensions/extensions/snippets/#snippet-sections">a Markdown extension for snippets</a>. This way code can be referenced instead of copy pasted into the documentation. This avoids code examples from becoming out of date or failing to compile. The syntax is as follows:</p>
-<pre><code class="language-kotlin">// --8&lt;-- [start:fun]
-fun double(x: Int): Int {
-    return 2 * x
-}
-// --8&lt;-- [end:fun]
+<p>Make sure the following Homebrew packages are installed:</p>
+<pre><code class="language-sh">brew install bazelisk webp libuv webp icu4c jpeg-turbo glfw
+brew link icu4c --force
 </code></pre>
-<p>Next, you'll be able to reference that piece of code in Markdown like so:</p>
-<pre><code>--8&lt;-- "example.kt:fun"
+<p>You can get started building the project for macOS using either Bazel or CMake.</p>
+<h2 id="bazel"><a class="header" href="#bazel">Bazel</a></h2>
+<p>Configure Bazel (optional):</p>
+<pre><code class="language-sh">cp platform/darwin/bazel/example_config.bzl platform/darwin/bazel/config.bzl
 </code></pre>
-<p>Where <code>example.kt</code> is the path to the file.</p>
-<h3 id="static-assets"><a class="header" href="#static-assets">Static Assets</a></h3>
-<p>Static assets are ideally uploaded to the <a href="https://maplibre-native.s3.eu-central-1.amazonaws.com/index.html#android-documentation-resources/">MapLibre Native S3 Bucket</a>.</p>
-<p>Please open an issue with the ARN of your AWS account to get upload privileges.</p>
-<p>You can use the macro <code>{{ s3_url("filename.example") }}</code> which will use a CDN instead of linking to the S3 bucket directly.</p>
+<p>Run the GLFW app with a style of your choice:</p>
+<pre><code class="language-sh">bazel run --//:renderer=metal //platform/glfw:glfw_app -- --style https://sgx.geodatenzentrum.de/gdz_basemapworld_vektor/styles/bm_web_wld_col.json
+</code></pre>
+<p>Create and open Xcode project:</p>
+<pre><code class="language-sh">bazel run //platform/macos:xcodeproj --@rules_xcodeproj//xcodeproj:extra_common_flags="--//:renderer=metal"
+xed platform/macos/MapLibre.xcodeproj
+</code></pre>
+<h2 id="cmake"><a class="header" href="#cmake">CMake</a></h2>
+<p>Configure CMake:</p>
+<pre><code class="language-sh">cmake --preset macos
+</code></pre>
+<p>Build and run the render tests:</p>
+<pre><code class="language-sh">cmake --build build-macos --target mbgl-render-test-runner
+build-macos/mbgl-render-test-runner --manifestPath=metrics/macos-xcode11-release-style.json
+</code></pre>
+<p>Build and run the C++ Tests:</p>
+<pre><code class="language-sh">cmake --build build-macos --target mbgl-test-runner
+npm install &amp;&amp; node test/storage/server.js  # required test server
+# in another terminal
+build-macos/mbgl-test-runner
+</code></pre>
+<p>Create and open an Xcode project with CMake:</p>
+<pre><code class="language-sh">cmake --preset macos-xcode
+xed build-macos-xcode/MapLibre\ Native.xcodeproj
+</code></pre>
+<p>Configure project for Vulkan (make sure <a href="https://github.com/KhronosGroup/MoltenVK">MoltenVK</a> is installed):</p>
+<pre><code class="language-sh">cmake --preset macos-vulkan
+</code></pre>
+<p>Build and run <code>mbgl-render</code> (simple command line utility for rendering maps):</p>
+<pre><code class="language-sh">cmake --build build-macos-vulkan --target mbgl-render
+build-macos-vulkan/bin/mbgl-render -z 7 -x -74 -y 41 --style https://americanamap.org/style.json
+open out.png
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../android/android-tests.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../platforms/ios/dev-apps.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../android/benchmark.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../release-policy.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -269,11 +342,11 @@ fun double(x: Int): Int {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../android/android-tests.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../platforms/ios/dev-apps.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../android/benchmark.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../release-policy.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -288,13 +361,13 @@ fun double(x: Int): Int {
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 
