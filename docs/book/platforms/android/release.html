@@ -79,6 +79,17 @@
         <script src="../../toc.js"></script>
     </head>
     <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -156,7 +167,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -278,29 +289,12 @@
 </code></pre>
 </li>
 <li>
-<p>Update <code>android/MapLibreAndroid/gradle.properties</code> with the new version.</p>
+<p>Update <code>android/VERSION</code> with the new version.</p>
 </li>
 </ul>
 </li>
 <li>
-<p>Once the pull request updating the changelog is merged, tag the commit:</p>
-<ul>
-<li>Create a tag locally, with for example:
-<pre><code>git tag -a android-v9.6.0 -m "Release android-v9.6.0"
-</code></pre>
-</li>
-<li>You need write access to push the tag, use for example:
-<pre><code>git push --atomic origin main android-v9.6.0
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p>Once the tag is pushed, you can run the <a href="https://github.com/maplibre/maplibre-native/blob/main/.github/workflows/android-release.yml"><code>android-release.yml</code></a> workflow.</p>
-<ul>
-<li>Open the <a href="https://github.com/maplibre/maplibre-native/actions/workflows/android-release.yml">android-release</a> workflow page.</li>
-<li>Press <em>Run workflow</em> and select the tag you pushed.</li>
-</ul>
+<p>Once the PR is merged, the <a href="https://github.com/maplibre/maplibre-native/blob/main/.github/workflows/android-release.yml"><code>android-release.yml</code></a> workflow will run automatically to make the release.</p>
 </li>
 </ol>
 
